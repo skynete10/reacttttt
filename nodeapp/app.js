@@ -1,26 +1,21 @@
-const express = require('express')
+const express = require('express');
+const { request } = require('http');
 const app = express()
 const port = 3000
-var MongoClient = require('mongodb').MongoClient;
-//Create a database named "test" and collection named "users":
-var url = "mongodb://localhost:27017/test";
 
-app.get('/', (req, res) => {
-  MongoClient.connect(url, function(err, db) {
-    if (err) throw err;
-    var dbo = db.db("test");
-    
-    var myobj = { name: req.query.name, age: req.query.age };
-  dbo.collection("users").insertOne(myobj, function(err, res) {
-    if (err) throw err;
-    console.log("1 document inserted");
-    db.close();
-  });
-      db.close();
-    });
-  res.send("1 document inserted");
-})
+const path=require('path');
+const app_router=express.Router;
+
+const mongoadd=require(path.join(__dirname+'/mongoadd'));
+app.get('/mongoadd',(request,response)=>{
+  response.json(mongoadd);
+});
+
+const mongolist=require(path.join(__dirname+'/mongolist'));
+app.get('/mongolist',(request,response)=>{
+  response.json(mongolist);
+});
 
 app.listen(port, () => {
-  console.log(`Example app listening at http://192.168.0.158:${port}`)
+  console.log(`Example app listening at http://localhost:${port}`)
 })

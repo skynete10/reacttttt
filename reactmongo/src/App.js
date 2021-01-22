@@ -1,38 +1,46 @@
-import logo from './logo.png';
+
 import './App.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
 
-import Home from "./home";
-import axios from "axios";
+import ReactDOM from 'react-dom'
+import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
+import { Navbar, Nav} from 'react-bootstrap';
+import {Link} from 'react-router-dom'; 
 
+import Home from './Home';
+import List from './List';
+
+
+ReactDOM.render(
+  <Router>
+      <App />
+  </Router>, 
+  document.getElementById('root')
+)
 function App() {
-  
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-         <div class="container">
-         <label for="name" class="lbl_class"><b>Name</b></label>
-    <input type="text" class="form-control" placeholder="name" id="name" required/>
-    <label class="lbl_class" for="age"><b>Age</b></label>
-    <input type="number" class="form-control" placeholder="age" id="age" required/>
-        
-    <button type="button" class="btn btn-success" onClick={submit}>Submit</button>
+    <main>
+      <Navbar bg="dark" variant="dark" expand="lg" sticky="top">
+        <Navbar.Brand href="#home">Test</Navbar.Brand>
+        <Navbar.Toggle aria-controls="basic-navbar-nav" />
+        <Navbar.Collapse id="basic-navbar-nav">
+          <Nav className="mr-auto">
+            <Nav.Link  ><Link to="/">Home </Link></Nav.Link>
+            <Nav.Link><Link to="/List">List </Link></Nav.Link>
+          </Nav>
+        </Navbar.Collapse>
+      </Navbar>
+      <div>
     
-         </div>
-      </header>
     </div>
-  );
+        <Switch>
+            <Route path="/" component={Home} exact />
+            <Route path="/List" component={List} />
+            <Route component={Error} />
+        </Switch>
+    </main>
+)
 }
-function submit(){
-  fetch("http://192.168.0.158:3000/?name="+document.getElementById("name").value+"&age="+document.getElementById("age").value+"")
-      .then(res => res.json())
-      .then(
-        (result) => {
-          this.setState({
-            isLoaded: true
-          });
-        }
-      )
-}
+
+
 export default App;
