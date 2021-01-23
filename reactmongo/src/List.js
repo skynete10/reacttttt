@@ -1,46 +1,49 @@
 import React, { Component } from "react";
 import './App.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
-var data = [{
-  id: 1,
-  name: "Pete Hunt",
-  age: "This is one comment",
-}, {
-  id: 2,
-  name: "aaa fff",
-  age: "22",
-}, {
-  id: 5,
-  name: "Pete Hunt",
-  age: "24",
-}];
-class Home extends Component {
+import axios from 'axios';
+import { data } from "jquery";
+
+
+class List extends Component {
+  state = {
+    data_rest: []
+  }
+  
+  componentDidMount() {
+    axios.get('http://localhost:3000/mongolist')
+      .then(response => {
+        this.setState({ data_rest: response.data });
+        console.log(this.state);
+      }, error => {
+        console.log(error);
+      });
+  }
   render() {
     return (
-      <div className="App">
-        <header className="App-header">
-          <div class="container">
-            <table class="table">
-              <thead>
-                <tr>
-                  <th>Name</th>
-                  <th>Age</th>
+      <div>
+        <table class="table">
+          <thead class="thead-light">
+            <tr>
+              <th scope="col">Name</th>
+              <th scope="col">Age</th>
+            </tr>
+          </thead>
+          <tbody>
+            {
+              this.state.data_rest.map(data_rest_var => (
+                <tr key={data_rest_var.id}>      
+                  <td>{data_rest_var.name}</td>
+                  <td>{data_rest_var.age}</td>
                 </tr>
-              </thead>
-              <tbody>
-                <tr>
-                  <td>Default</td>
-                  <td>Defaultson</td>
-                
-                </tr>
-
-              </tbody>
-            </table>
-          </div>
-        </header>
+              )
+              )
+            }
+          </tbody>
+        </table>
       </div>
     );
   }
 }
 
-export default Home;
+export default List;

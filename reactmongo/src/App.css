@@ -1,3 +1,20 @@
+.Nav_link:link {
+  color: black;
+  font-size: 20px;
+  line-height: 1.6rem;
+  text-decoration: none;
+  padding: 10px;
+}
+.Nav_link:visited {
+  color: black;
+}
+.Nav_link:hover {
+  color: red;
+}
+.Nav_link:active {
+  color: teal;
+}
+
 .App {
   text-align: center;
 }
