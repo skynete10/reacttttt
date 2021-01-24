@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import './App.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import axios from 'axios';
-import { data } from "jquery";
+
 
 
 class List extends Component {
@@ -14,7 +14,7 @@ class List extends Component {
     axios.get('http://localhost:3000/mongolist')
       .then(response => {
         this.setState({ data_rest: response.data });
-        console.log(this.state);
+        //console.log(this.state);
       }, error => {
         console.log(error);
       });

@@ -14,21 +14,20 @@ let router_add = express.Router();
 let router_list = express.Router();
 
 router_add.get('/', function (req, res) {
-
-
   MongoClient.connect(url, function (err, db) {
     if (err) throw err;
     var dbo = db.db("test");
 
-    var myobj = { name: req.query.name, age: req.query.age };
-    dbo.collection("users").insertOne(myobj, function (err, res) {
+    var myobj = { name: req.query.name, age: req.query.name };
+    dbo.collection("users").insertOne(myobj, function (err, result) {
       if (err) throw err;
       console.log("1 document inserted");
+      res.send('1');
       db.close();
     });
     db.close();
   });
-  
+ 
 });
 
 router_list.get('/', function (req, res) {
